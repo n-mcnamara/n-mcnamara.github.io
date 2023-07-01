@@ -9,6 +9,16 @@
             var paragraph = document.getElementById(inputBlog);
             paragraph.style.display = "block";
         }
+
+
+        function yo() {
+            const getUserGitHubAPI = async () => {
+                const APIResponse = await fetch('https://api.github.com/users/juliolimacostavalladares');
+                const gitHubUser = await APIResponse.json();
+                console.log(gitHubUser);
+            }
+            getUserGitHubAPI()
+        }
     </script>
 
     <style>
@@ -61,7 +71,7 @@
         </button>
 
         <button class="button"
-                onclick="displayText('blog4')">
+                onclick="yo()">
             Blog 4..
         </button>
     </div>
