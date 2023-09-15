@@ -39,12 +39,12 @@
 
             db.collection("posts").orderBy("timestamp", "desc").limit(1).get().then((doc) => {
 
-                var data = doc.data()
+                var data = doc.data();
 
-                var input = "Title: " + data.title + "|| Post: " + data.content
+                var input = "Title: " + data.title + "|| Post: " + data.content;
 
                 if (doc.exists) {
-                    displayPost(input)
+                    displayPost(input);
                 }
 
             }).catch((error) => { console.log("Error getting document:", error); });
