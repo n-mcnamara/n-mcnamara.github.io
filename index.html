@@ -16,6 +16,11 @@
             paragraph.style.display = "block";
         }
 
+
+        function displayPost(inputPost) {
+            document.getElementById("blog1").innerHTML = inputPost;
+        }
+                
         function postToDatabase() {
             db.collection("posts").add({
                 name: "Post1",
@@ -32,17 +37,16 @@
 
         function getRecentPost() {
 
-            db.collection("posts").get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    console.log(`${doc.id} => ${doc.data()}`);
-                });
-            });
+            db.collection("posts").orderBy("timestamp", "desc").limit(1).get().then((doc) => {
 
-            db.collection("posts").get().then((querySnapshot) => {
-                querySnapshot.for
+                var input = "Title: " + doc.title + "|| Post: " + doc.content
 
+                if (doc.exists) {
+                    displayPost(input)
+                }
 
-            })
+            }).catch((error) => { console.log("Error getting document:", error); });
+
         }
 
 
@@ -153,7 +157,7 @@
 
 
 
-    <p id="blog1" style="display: none;"> First blog post :):):):):):):. </p>
+    <p id="blog1" style="display: block;"> First blog post :):):):):):):. </p>
 
     <p id="blog2" style="display: none;"> worms? 9.2.2016 </p>
 
