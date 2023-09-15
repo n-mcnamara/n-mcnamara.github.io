@@ -39,7 +39,9 @@
 
             db.collection("posts").orderBy("timestamp", "desc").limit(1).get().then((doc) => {
 
-                var input = "Title: " + doc.title + "|| Post: " + doc.content
+                var data = doc.data()
+
+                var input = "Title: " + data.title + "|| Post: " + data.content
 
                 if (doc.exists) {
                     displayPost(input)
@@ -135,7 +137,7 @@
         </button>
 
         <button class="button"
-                onclick="displayText('blog2')">
+                onclick="getRecentPost()">
             Most recent post
         </button>
 
