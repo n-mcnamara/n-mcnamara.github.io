@@ -3,6 +3,7 @@
 
 <head>
     <script>
+
        
 
         function displayText(inputBlog) {
@@ -42,7 +43,45 @@
 
 <body>
 
-    <h1>THE SQUABBLE</h1>
+    <script>
+
+        import { initializeApp } from "firebase/app";
+        import { getFirestore } from "firebase/firestore";
+        import { getAnalytics } from "firebase/analytics";
+        import { collection, addDoc } from "firebase/firestore";
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyCNL_SsLthrwTVvIZiCnvHawgsO6BmpXqg",
+            authDomain: "thesquabble-3b8f4.firebaseapp.com",
+            projectId: "thesquabble-3b8f4",
+            storageBucket: "thesquabble-3b8f4.appspot.com",
+            messagingSenderId: "2296673441",
+            appId: "1:2296673441:web:008e6cb1972d78f42cace0",
+            measurementId: "G-YYXYJ7B53N"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        //init cloud firstore
+        const db = getFirestore(app);
+
+        try {
+            const docRef = await addDoc(collection(db, "users"), {
+                first: "Ada",
+                last: "Lovelace",
+                born: 1815
+            });
+            console.log("Document written with ID: ", docRef.id);
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
+
+    </script>
+
+
+    <h1>THE SQUABBLE 1</h1>
 
     <div class="button-container">
         <img src="fire.png" class="picture-line" alt="fire" width="400" height="263">
