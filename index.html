@@ -39,7 +39,7 @@
 
             db.collection("posts").orderBy("timestamp", "desc").limit(1).get().then((doc) => {
 
-                var data = doc.data();
+                var data = doc.data;
 
                 var input = "Title: " + data.title + "|| Post: " + data.content;
 
