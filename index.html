@@ -39,6 +39,9 @@
 
             db.collection("posts").orderBy("timestamp", "desc").limit(1).get().then((doc) => {
 
+                console.log(doc.data());
+                console.log(doc.data.name);
+
                 var data = doc.data;
 
                 var input = "Title: " + data.name + "|| Post: " + data.content;
