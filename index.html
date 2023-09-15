@@ -16,6 +16,20 @@
             paragraph.style.display = "block";
         }
 
+        function postToDatabase() {
+            db.collection("posts").add({
+                name: "Post1",
+                content: "Whooooooooo",
+                date: Date.now
+            })
+                .then((docRef) => {
+                    console.log("Document written with ID: ", docRef.id);
+                })
+                .catch((error) => {
+                    console.error("Error adding document: ", error);
+                });
+        }
+
 
         function yo() {
             const getUserGitHubAPI = async () => {
@@ -79,17 +93,13 @@
         //init cloud firstore
         //const db = getFirestore(app);
 
-        db.collection("users").add({
-            first: "Ada",
-            last: "Lovelace",
-            born: 1815
-        })
-            .then((docRef) => {
-                console.log("Document written with ID: ", docRef.id);
-            })
-            .catch((error) => {
-                console.error("Error adding document: ", error);
+        
+
+        db.collection("posts").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                console.log(`${doc.id} => ${doc.data()}`);
             });
+        });
 
     </script>
 
@@ -108,7 +118,7 @@
     <div class="button-container">
 
         <button class="button"
-                onclick="displayText('blog1')">
+                onclick="postToDatabase()">
             Blog 1
         </button>
 
