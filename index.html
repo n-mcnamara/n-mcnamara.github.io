@@ -20,7 +20,7 @@
             db.collection("posts").add({
                 name: "Post1",
                 content: "Whooooooooo",
-                date: 1
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
             })
                 .then((docRef) => {
                     console.log("Document written with ID: ", docRef.id);
@@ -28,6 +28,21 @@
                 .catch((error) => {
                     console.error("Error adding document: ", error);
                 });
+        }
+
+        function getRecentPost() {
+
+            db.collection("posts").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    console.log(`${doc.id} => ${doc.data()}`);
+                });
+            });
+
+            db.collection("posts").get().then((querySnapshot) => {
+                querySnapshot.for
+
+
+            })
         }
 
 
@@ -93,13 +108,6 @@
         //init cloud firstore
         //const db = getFirestore(app);
 
-        
-
-        db.collection("posts").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                console.log(`${doc.id} => ${doc.data()}`);
-            });
-        });
 
     </script>
 
@@ -124,7 +132,7 @@
 
         <button class="button"
                 onclick="displayText('blog2')">
-            Blog 2
+            Most recent post
         </button>
 
         <button class="button"
