@@ -44,9 +44,9 @@
 
                 console.log(doc.data.name);
 
-                var datA = doc.data();
+               // var datA = doc.data();
 
-                var input = "Title: " + datA.name + "|| Post: " + datA.content;
+                var input = "Title: " + doc.data().name + "|| Post: " + doc.data().content;
 
                 if (doc.exists) {
                     displayPost(input);
