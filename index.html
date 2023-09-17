@@ -37,16 +37,16 @@
 
         function getRecentPost() {
 
-            db.collection("posts").doc("AdOVI5w12kr4pIAMpR6S").get().then((doc) => {
-
-                console.log(doc.data());
-                console.log(doc.data().content);
+            db.collection("posts").orderBy("timestamp", "desc").limit(1).get().then((doc) => {
+                  
+                console.log(doc.data); 
+                console.log(doc.content);
 
                 console.log(doc.data.name);
 
-                var data = doc.data();
+                var datA = doc.data();
 
-                var input = "Title: " + data.name + "|| Post: " + data.content;
+                var input = "Title: " + datA.name + "|| Post: " + datA.content;
 
                 if (doc.exists) {
                     displayPost(input);
