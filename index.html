@@ -37,8 +37,8 @@
 
         function getRecentPost() {
 
-            db.collection("posts").limit(1).get().then((doc) => {
-
+            db.collection("posts").doc("AdOVI5w12kr4pIAMpR6S").get().then((doc) => {
+                  
                 console.log(doc.data); 
                 console.log(doc.content);
 
@@ -110,8 +110,8 @@
             measurementId: "G-YYXYJ7B53N"
         };
 
-       // const app = initializeApp(firebaseConfig);
-       // const analytics = getAnalytics(app);
+        // const app = initializeApp(firebaseConfig);
+        // const analytics = getAnalytics(app);
 
         firebase.initializeApp(firebaseConfig);
 
@@ -133,6 +133,11 @@
 
     <p>Kacaaaaw</p>
 
+    <form id="login-form">
+        <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
+        <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
+        <input type="submit" value="Login" id="login-form-submit">
+    </form>
 
     <div class="button-container">
 
@@ -176,7 +181,7 @@
         Gulls nest in large, densely packed, noisy colonies. They lay two or three speckled eggs in nests composed of vegetation. The young are precocial, born with dark mottled down and mobile upon hatching.[7] Gulls are resourceful, inquisitive, and intelligent, the larger species in particular,[8] demonstrating complex methods of communication and a highly developed social structure. For example, many gull colonies display mobbing behavior, attacking and harassing predators and other intruders.[9] Certain species have exhibited tool-use behavior, such as the herring gull, using pieces of bread as bait with which to catch goldfish, for example.[10] Many species of gulls have learned to coexist successfully with humans and have thrived in human habitats.[11] Others rely on kleptoparasitism to get their food. Gulls have been observed preying on live whales, landing on the whale as it surfaces to peck out pieces of flesh.[12]
     </p>
 
-   
+
 
     <img src="baby-angel.gif" id="blog5" style="display: none;" alt="baby" width="250" height="123">
     <img src="devil-baby.gif" id="blog6" style="display: none;" alt="baby" width="250" height="123">
