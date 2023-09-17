@@ -39,12 +39,12 @@
 
             db.collection("posts").doc("AdOVI5w12kr4pIAMpR6S").get().then((doc) => {
 
-                console.log(doc.data.content);
-                console.log(doc.content);
+                console.log(doc.data());
+                console.log(doc.data().content);
 
                 console.log(doc.data.name);
 
-                var data = doc.data;
+                var data = doc.data();
 
                 var input = "Title: " + data.name + "|| Post: " + data.content;
 
