@@ -46,10 +46,10 @@
 
                // var datA = doc.data();
 
-                var input = "Title: " + doc.data().name + "|| Post: " + doc.data().content;
+                var input = doc.data().content;
 
                 if (doc.exists) {
-                    displayPost(input);
+                    displayPost(String(input));
                 }
 
             }).catch((error) => { console.log("Error getting document:", error); });
