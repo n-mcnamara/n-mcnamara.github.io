@@ -37,6 +37,13 @@
 
         function getRecentPost() {
 
+            var posts = db.collection("posts");
+
+            var query = posts.orderBy("timestamp", "desc").limit(1);
+
+            console.log(query.data());
+               
+
             db.collection("posts").doc("AdOVI5w12kr4pIAMpR6S").get().then((doc) => {
 
           //db.collection("posts").get().then((doc) => {
