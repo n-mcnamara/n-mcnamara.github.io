@@ -38,6 +38,7 @@
         function getRecentPost() {
 
             db.collection("posts").get().then((doc) => {
+
           //db.collection("posts").get().then((doc) => {
 
                 console.log(doc.data().content);
