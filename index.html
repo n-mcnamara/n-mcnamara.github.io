@@ -38,13 +38,13 @@
         function getRecentPost() {
 
             db.collection("posts").orderBy("timestamp", "desc").limit(1).get().then((doc) => {
-                  
-                console.log(doc.data); 
+
+                console.log(doc.data().content);
                 console.log(doc.content);
 
-                console.log(doc.data.name);
+                console.log(doc.data().name);
 
-               // var datA = doc.data();
+                // var datA = doc.data();
 
                 var input = doc.data().content;
 
