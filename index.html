@@ -1,80 +1,17 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
 
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
 
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
 
-    <script>
+    <script src="scripts.js"></script>
 
-
-
-        function displayText(inputBlog) {
-            var paragraph = document.getElementById(inputBlog);
-            paragraph.style.display = "block";
-        }
-
-
-        function displayPost(inputPost) {
-            document.getElementById("blog1").innerHTML = inputPost;
-        }
-                
-        function postToDatabase() {
-            db.collection("posts").add({
-                name: "Post1",
-                content: "Whooooooooo",
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            })
-                .then((docRef) => {
-                    console.log("Document written with ID: ", docRef.id);
-                })
-                .catch((error) => {
-                    console.error("Error adding document: ", error);
-                });
-        }
-
-        function getRecentPost() {
-
-            var posts = db.collection("posts");
-
-            var query = posts.orderBy("timestamp", "desc").limit(1);
-
-            console.log(query.data());
-               
-
-            db.collection("posts").doc("AdOVI5w12kr4pIAMpR6S").get().then((doc) => {
-
-          //db.collection("posts").get().then((doc) => {
-
-                console.log(doc.data().content);
-                console.log(doc.content);
-
-                console.log(doc.data().name);
-
-                // var datA = doc.data();
-
-                var input = doc.data().content;
-
-                if (doc.exists) {
-                    displayPost(String(input));
-                }
-
-            }).catch((error) => { console.log("Error getting document:", error); });
-
-        }
-
-
-        function yo() {
-            const getUserGitHubAPI = async () => {
-                const APIResponse = await fetch('https://api.github.com/users/n-mcnamara');
-                const gitHubUser = await APIResponse.json();
-                console.log(gitHubUser);
-            }
-            getUserGitHubAPI()
-        }
-    </script>
 
     <style>
         .button-container {
@@ -109,25 +46,7 @@
 
         // Your web app's Firebase configuration
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyCNL_SsLthrwTVvIZiCnvHawgsO6BmpXqg",
-            authDomain: "thesquabble-3b8f4.firebaseapp.com",
-            projectId: "thesquabble-3b8f4",
-            storageBucket: "thesquabble-3b8f4.appspot.com",
-            messagingSenderId: "2296673441",
-            appId: "1:2296673441:web:008e6cb1972d78f42cace0",
-            measurementId: "G-YYXYJ7B53N"
-        };
-
-        // const app = initializeApp(firebaseConfig);
-        // const analytics = getAnalytics(app);
-
-        firebase.initializeApp(firebaseConfig);
-
-        const db = firebase.firestore();
-        //init cloud firstore
-        //const db = getFirestore(app);
-
+        
 
     </script>
 
@@ -142,34 +61,47 @@
 
     <p>Kacaaaaw</p>
 
-    <form id="login-form">
+    <div>
         <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
         <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
-        <input type="submit" value="Login" id="login-form-submit">
-    </form>
+        <!--<input type="submit" value="Login" id="login-form-submit">-->
+        <button onclick="login()">Login!</button>
+    </div>
 
-    <div class="button-container">
+    <div id="admin-content" style="display: none;">
+        <h2>Welcome, Admin!</h2>
+        <input type="text" name="Title" id="blog-title-field" placeholder="Title">
+        <textarea id="admin-textarea" rows="10" cols="50"></textarea><br><br>
 
         <button class="button"
                 onclick="postToDatabase()">
-            Blog 1
+            Post to blog
         </button>
+    </div>
+
+
+    <div class="button-container">
+
+        
 
         <button class="button"
-                onclick="getRecentPost()">
-            Most recent post
+                onclick="fetchBlogEntries()">
+            Refresh blog
         </button>
 
-        <button class="button"
+         <button class="button" style="display: none;"
                 onclick="displayText('blog3')">
             Blog 3
         </button>
 
-        <button class="button"
+        <button class="button" style="display: none;"
                 onclick="yo()">
             Blog 4..
         </button>
     </div>
+
+
+    <ul id="blog-list"></ul>
 
     <button class="button"
             onclick="displayText('blog5'); displayText('blog6');">
@@ -178,7 +110,6 @@
 
 
 
-    <p id="blog1" style="display: block;"> First blog post :):):):):):):. </p>
 
     <p id="blog2" style="display: none;"> worms? 9.2.2016 </p>
 
