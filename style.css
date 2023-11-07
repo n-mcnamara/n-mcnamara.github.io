@@ -1,0 +1,55 @@
+/* styles.css */
+
+/* Style for the blog list */
+#blog-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Style for each blog post */
+#blog-list li {
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for blog post title */
+#blog-list li h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* Style for blog post content */
+#blog-list li p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+/* Style for blog post content */
+#blog-list li d {
+    font-size: 10px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.button-container {
+    display: flex;
+}
+
+.button {
+    margin-right: 10px;
+}
+
+.picture-line {
+    margin-right: 800px;
+}
+
+/* Top left text */
+.top-left {
+    position: absolute;
+    top: 30px;
+    left: 16px;
+  }
