@@ -113,7 +113,21 @@ function fetchBlogEntries() {
             querySnapshot.forEach((doc) => {
                 const blogEntry = doc.data();
                 const listItem = document.createElement('li');
-                listItem.textContent = `${blogEntry.name}: ${blogEntry.content}`;
+                //listItem.textContent = `${blogEntry.name}:\n` +  `${blogEntry.content}`;
+                const titleH = document.createElement('h2')
+                titleH.textContent = blogEntry.name;
+                listItem.appendChild(titleH);
+
+                const para = document.createElement('p')
+                para.textContent = blogEntry.content;
+                listItem.appendChild(para);
+
+                const dateP = document.createElement('d')
+                dateP.textContent = blogEntry.timestamp.toDate().toDateString();
+                listItem.appendChild(dateP);
+
+                //listItem.textContent = blogEntry.name + ": \n" + blogEntry.content;
+
                 blogList.appendChild(listItem);
             });
         })
