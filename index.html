@@ -8,24 +8,12 @@
     <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
 
-<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+    <link rel="stylesheet" href="style.css">
 
     <script src="scripts.js"></script>
 
 
-    <style>
-        .button-container {
-            display: flex;
-        }
-
-        .button {
-            margin-right: 10px;
-        }
-
-        .picture-line {
-            margin-right: 800px;
-        }
-    </style>
+    <body style="background-color:rgb(229, 204, 151);">
 
 
 </head>
@@ -34,43 +22,22 @@
 
 <body>
 
-    <script>
-
-        //import { initializeApp } from "firebase/app";
-        //import { getFirestore } from "firebase/firestore";
-        //import { getAnalytics } from "firebase/analytics";
-        //import { collection, addDoc } from "firebase/firestore";
-
-        //import firebase from "firebase/compat/app";
-        //import "firebase/firestore";
-
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        
-
-    </script>
 
 
-    <h1>THE SQUABBLE 1</h1>
-
-    <div class="button-container">
-        <img src="fire.png" class="picture-line" alt="fire" width="400" height="263">
-        <img src="fire.png" class="picture-line" alt="fire" width="400" height="263">
+    <div class="container">
+        <div class="top-left">THE SQUABBLE</div>
+        <img src="fire.png" class="picture-line" alt="fire" width="320" height="213">
     </div>
 
 
     <p>Kacaaaaw</p>
 
-    <div>
-        <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
-        <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
-        <!--<input type="submit" value="Login" id="login-form-submit">-->
-        <button onclick="login()">Login!</button>
-    </div>
-
+   
     <div id="admin-content" style="display: none;">
         <h2>Welcome, Admin!</h2>
-        <input type="text" name="Title" id="blog-title-field" placeholder="Title">
+        <div>
+            <input type="text" name="Title" id="blog-title-field" placeholder="Title">
+        </div>
         <textarea id="admin-textarea" rows="10" cols="50"></textarea><br><br>
 
         <button class="button"
@@ -102,6 +69,15 @@
 
 
     <ul id="blog-list"></ul>
+
+
+    <div>
+        <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
+        <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password" method="post">
+        <!--<input type="submit" value="Login" id="login-form-submit">-->
+        <button onclick="login()">Login!</button>
+    </div>
+
 
     <button class="button"
             onclick="displayText('blog5'); displayText('blog6');">
