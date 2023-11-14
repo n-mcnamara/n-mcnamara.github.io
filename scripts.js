@@ -54,6 +54,8 @@ function checkAdminStatus(userId) {
                 const adminContent = document.getElementById('admin-content');
                 adminContent.style.display = 'block';
 
+                displayDel = true;
+
 
             } else {
                 // User is not an admin, handle accordingly
@@ -68,9 +70,6 @@ function checkAdminStatus(userId) {
 }
 
 
-
-
-
 function displayText(inputBlog) {
     var paragraph = document.getElementById(inputBlog);
     paragraph.style.display = "block";
@@ -80,23 +79,64 @@ function displayText(inputBlog) {
 function displayPost(inputPost) {
     document.getElementById("blog1").innerHTML = inputPost;
 }
+
+const fileInput = document.getElementById('blog-img-field');
+var selectedFile;
+  fileInput.addEventListener('change', (event) => {
+    selectedFile = event.target.files[0];
+    // 'selectedFile' is now a File object representing the user-selected file
+    console.log("file sleected" + selectedFile);
+  });
         
 function postToDatabase() {
     var blogTitle = document.getElementById("blog-title-field").value;
     var blogContent = document.getElementById("admin-textarea").value;
-
+    const imgURL = document.getElementById('blog-img-field').files[0];
+    console.log(imgURL);
+    var r = null;
+    var d = null;
+    const storageRef = firebase.storage().ref('images/' + imgURL.name);
+    
     db.collection("posts").add({
         name: blogTitle,
         content: blogContent,
+        imgUrl: r,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
     })
         .then((docRef) => {
             console.log("Document written with ID: ", docRef.id);
+            d = docRef.id;
         })
         .catch((error) => {
             console.error("Error adding document: ", error);
-        });
+    });
+
+    storageRef.put(imgURL).then((snapshot) => {
+        snapshot.ref.getDownloadURL().then((downloadURL) => {
+            // 'downloadURL' contains the URL you can save in your Firestore database
+            console.log('File available at', downloadURL);
+            r = downloadURL;
+            console.log(d + " : doc id??")
+            const blogEntryRef = db.collection('posts').doc(d); // Replace 'your-document-id' with the actual document ID
+            // Update the document with the download URL
+                return blogEntryRef.update({
+                    imgUrl: downloadURL
+                });
+            }).then(() => {
+                console.log('Image URL stored in the database successfully.');
+            })
+            .catch((error) => {
+                console.error('Error storing image URL in the database:', error);
+            });
+
+    });
+
+    document.getElementById("blog-title-field").value = "";
+    document.getElementById("admin-textarea").value = "";
+    document.getElementById("blog-img-field").value = "";
 }
+
+var displayDel = false;
 
 function fetchBlogEntries() {
     const blogList = document.getElementById('blog-list');
@@ -122,9 +162,32 @@ function fetchBlogEntries() {
                 para.textContent = blogEntry.content;
                 listItem.appendChild(para);
 
+                 // Create and append the image (img) element
+                 if (blogEntry.imgUrl) {
+                    console.log("image found: " + blogEntry.imgURL);
+                    const image = document.createElement('img');
+                    image.src = blogEntry.imgUrl;
+                    image.alt = blogEntry.title; // Use the title as alt text for accessibility
+                    image.width = "320";
+                    image.height = "213";
+                    listItem.appendChild(image);
+                }
+
                 const dateP = document.createElement('d')
                 dateP.textContent = blogEntry.timestamp.toDate().toDateString();
                 listItem.appendChild(dateP);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.data = "Delete";
+                deleteButton.id = doc.id;
+                if(!displayDel)deleteButton.style = "display: none;";
+                if(displayDel)deleteButton.style = "display: block;";
+
+                deleteButton.onclick = function(){               
+                   deletePost(doc.id);
+                };
+                listItem.appendChild(deleteButton);
+
 
                 //listItem.textContent = blogEntry.name + ": \n" + blogEntry.content;
 
@@ -135,6 +198,23 @@ function fetchBlogEntries() {
             // Handle errors here
             console.error(error.message);
         });
+}
+
+function deletePost(documentId) {
+
+    // Reference to the specific document in the 'blogEntries' collection
+    const blogEntryRef = db.collection('posts').doc(documentId);
+
+    // Delete the document
+    blogEntryRef.delete()
+        .then(() => {
+            console.log('Blog entry deleted successfully.');
+        })
+        .catch((error) => {
+            console.error('Error deleting blog entry:', error);
+        });
+        //this might cost too much
+    //fetchBlogEntries();
 }
 
 function getRecentPost() {
